@@ -1,0 +1,76 @@
+<section fxLayout="column" fxLayoutAlign="center center">
+  <p>MicroGlyph TXT to PLT Converter</p>
+
+  <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="16px" #form="ngForm">
+
+    <mat-form-field>
+      <mat-label>MG text input</mat-label>
+
+      <!-- MG Input text area -->
+      <textarea
+        matInput
+        [ngModel]="txt"
+        (ngModelChange)="generate($event)"
+        name="txt"
+        required
+        cdkTextareaAutosize
+        #formInput="ngModel"
+      ></textarea>
+
+      <!-- Upload icon/button -->
+      <button mat-icon-button
+        matSuffix
+        matTooltip="Upload from txt file"
+        matTooltipShowDelay="500"
+        (click)="openfile.value=''; openfile.click()">
+        <mat-icon>folder_open</mat-icon>
+      </button>
+
+      <!-- Hidden file open control -->
+      <input
+        style="display:none"
+        type="file"
+        accept="text/plain"
+        (change)="upload($event.target.files.item(0))"
+        #openfile
+      />
+
+      <mat-error *ngIf="!formInput.valid">Missing input</mat-error>
+      <mat-hint>Paste your MG text here or load it from a file</mat-hint>
+    </mat-form-field>
+
+    <!-- MG code preview -->
+    <mg-preview [input]="mg"></mg-preview>
+
+    <!-- Output code width -->
+    <mat-form-field>
+      <mat-label>Code width (mm)</mat-label>
+      <input matInput
+        [ngModel]="width"
+        (ngModelChange)="plt = convertPLT(mg, width = $event);"
+        name="width" type="number" />
+    </mat-form-field>
+
+    <!-- MG plt output -->
+    <mat-form-field>
+      <mat-label>MG plt output</mat-label>
+
+      <textarea
+        matInput
+        [ngModel]="plt"
+        name="plt"
+        rows="5"
+        readonly
+        #pltOutput
+      ></textarea>
+
+      <!-- Download icon/button -->
+      <a mat-icon-button matSuffix matTooltip="Download as PLT file" matTooltipShowDelay="500" [attr.download]="name"
+        [href]="pltOutput.value|blob">
+        <mat-icon>file_download</mat-icon>
+      </a>
+
+    </mat-form-field>
+
+  </form>
+</section>

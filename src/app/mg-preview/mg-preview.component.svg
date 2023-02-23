@@ -1,0 +1,15 @@
+
+<svg attr.viewBox="0 0 {{width}} {{height}}" xmlns="http://www.w3.org/2000/svg">
+
+  <g *ngFor="let line of mg; let i=index">
+
+    <line *ngFor="let glyph of line; let j=index"
+      [attr.x1]="glyph|mgGlyph:j:cell"
+      [attr.y1]="true|mgGlyph:i:cell"
+      [attr.x2]="!glyph|mgGlyph:j:cell"
+      [attr.y2]="false|mgGlyph:i:cell"
+    />
+
+  </g>
+
+</svg>
