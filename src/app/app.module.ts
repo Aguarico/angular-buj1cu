@@ -18,7 +18,7 @@ import { BlobPipe } from './blob.pipe';
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    FlexLayoutModule,
+    //FlexLayoutModule,
     MatFormFieldModule,
     MatButtonModule,
     MatIconModule,
